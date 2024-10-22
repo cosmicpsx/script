@@ -1,0 +1,61 @@
+
+function sn(n)
+if n >= 1000000 then
+return (math.floor(n/100000)/10).."m"
+elseif n >=1000 then
+return (math.floor(n/100)/10).."k"
+else
+return n
+end
+end
+
+spawn(function()
+while wait() do
+game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Eggs_Roll"):InvokeServer()
+end
+end)
+
+spawn(function()
+local num = 27447
+game:GetService("Workspace")["__THINGS"].Breakables.Highlight:Destroy()
+game:GetService("Workspace")["__THINGS"].Pets.Highlight:Destroy()
+local lists = {}
+for i,v in pairs(game:GetService("Workspace")["__THINGS"].Pets:GetChildren()) do
+table.insert(lists, v.Name)
+end
+while wait() do
+if #game:GetService("Workspace")["__THINGS"].Breakables:GetChildren() >= 1 then
+local obj = game:GetService("Workspace")["__THINGS"].Breakables:GetChildren()[1]
+num = tonumber(obj.Name)
+for u,i in pairs(lists) do
+local args = {
+    [1] = {
+        [tostring(i)] = num
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Breakables_JoinPetBulk"):FireServer(unpack(args))
+end
+end
+end
+end)
+
+spawn(function()
+while wait(1) do
+local x = game:GetService("Workspace")["__THINGS"].Orbs:GetChildren()
+for i,v in pairs(x) do
+local args = {
+    [1] = {
+        [1] = tonumber(v.Name)
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Orbs: Collect"):FireServer(unpack(args))
+v:Destroy()
+end
+end 
+end)
+
+
+
+-- Blob Pro
