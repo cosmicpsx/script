@@ -5,21 +5,25 @@ else
 appendfile("vstyf.txt", game.JobId)
 end
 local file = readfile("vstyf.txt")
-wait(7)
+wait(5)
 repeat wait() until #workspace.Rendered.Rifts:GetChildren() >= 5
 local rifts = workspace.Rendered.Rifts:GetChildren()
+local dohop = true
 for i,v in pairs(rifts) do
 if v.Name == "royal-chest" or v.Name=="aura-egg" then
   game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Size = UDim2.fromScale(1,1)
   game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Text = "RIFT FOUND"
 (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/vestyx/VestyHub/refs/heads/main/loader.lua", true))()
-else 
+    dohop = false
+  end
+if dohop then
+
 local queue = queueonteleport or queue_on_teleport or nil
  if queue then
 queue('(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()')
  end
     if not queue then error("no queue") end
-  wait(8)
+  wait(6)
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
 
@@ -40,6 +44,6 @@ if success and response and response.data then
 else
     warn("Failed to find a server to hop.")
 end
-
+  end
 end
 end
