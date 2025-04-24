@@ -19,7 +19,7 @@ local queue = queueonteleport or queue_on_teleport or nil
 queue('(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()')
  end
     if not queue then error("no queue") end
-  wait(15)
+  wait(8)
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
 
