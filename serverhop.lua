@@ -44,20 +44,11 @@ if dohop then
     local success, response =
         pcall(
         function()
-            local e =  HttpService:JSONDecode(
-                game:HttpGet(
-                    "https://games.roblox.com/v1/games/" ..
-                        placeId ..
-                            "/servers/Public?sortOrder=Asc&limit=100&excludeFullGames=true"
-                )
-            )
-            print(e, e.nextPageCursor)
-            if not e.nextPageCursor then return e end
             return HttpService:JSONDecode(
                 game:HttpGet(
                     "https://games.roblox.com/v1/games/" ..
                         placeId ..
-                            "/servers/Public?sortOrder=Asc&limit=100&excludeFullGames=true&cursor="..e.nextPageCursor
+                            "/servers/Public?sortOrder=Asc&limit=100&excludeFullGames=true"
                 )
             )
         end
