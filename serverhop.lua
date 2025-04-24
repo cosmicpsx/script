@@ -9,11 +9,13 @@ wait(5)
 local rifts = workspace.Rendered.Rifts:GetChildren()
 for i,v in pairs(rifts) do
 if v.Name == "royal-chest" or v.Name=="aura-egg" then
+  game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Size = UDim2.fromScale(1,1)
+  game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Text = "RIFT FOUND"
 (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/vestyx/VestyHub/refs/heads/main/loader.lua", true))()
 else 
 local queue = queueonteleport or queue_on_teleport or nil
  if queue then
-queue('(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/vestyx/VestyHub/refs/heads/main/loader.lua", true))()')
+queue('(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()')
  end
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
