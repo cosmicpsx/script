@@ -1,51 +1,68 @@
-repeat wait() until game:IsLoaded()
+repeat
+    wait()
+until game:IsLoaded()
 if not isfile("vstyf.txt") then
-writefile("vstyf.txt", game.JobId)
+    writefile("vstyf.txt", game.JobId)
 else
-appendfile("vstyf.txt", game.JobId)
+    appendfile("vstyf.txt", game.JobId)
 end
 local file = readfile("vstyf.txt")
 wait(5)
-repeat wait() until #workspace.Rendered.Rifts:GetChildren() >= 5
+repeat
+    wait()
+until #workspace.Rendered.Rifts:GetChildren() >= 5
 local rifts = workspace.Rendered.Rifts:GetChildren()
 local dohop = true
-for i,v in pairs(rifts) do
-if v.Name == "royal-chest" or v.Name=="aura-egg" then
-  game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Size = UDim2.fromScale(1,1)
-  game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Text = "RIFT FOUND"
-(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/vestyx/VestyHub/refs/heads/main/loader.lua", true))()
-    dohop = false
-  end
-if dohop then
-
-local queue = queueonteleport or queue_on_teleport or nil
- if queue then
-queue('(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()')
- end
-    if not queue then error("no queue") end
-  wait(6)
-local TeleportService = game:GetService("TeleportService")
-local HttpService = game:GetService("HttpService")
-
-local placeId = game.PlaceId
-local servers = {}
-
-local success, response = pcall(function()
-    local e =  HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true"))
-    local f = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true&cursor="..e.nextPageCursor))
-    return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true&cursor="..f.nextPageCursor))
-end)
-
-if success and response and response.data then
-    for _, server in pairs(response.data) do
-        if server.playing < server.maxPlayers-1 and server.id ~= game.JobId and not string.find(file, game.JobId) then
-            TeleportService:TeleportToPlaceInstance(placeId, server.id, game.Players.LocalPlayer)
-            break
-        end
+for i, v in pairs(rifts) do
+    if v.Name == "royal-chest" or v.Name == "aura-egg" then
+        game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Size = UDim2.fromScale(1, 1)
+        game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Button.Label.Text = "RIFT FOUND"
+        (loadstring or load)(
+            game:HttpGet("https://raw.githubusercontent.com/vestyx/VestyHub/refs/heads/main/loader.lua", true)
+        )()
+        dohop = false
     end
-else
-    warn("Failed to find a server to hop.")
 end
-  end
-end
+if dohop then
+    local queue = queueonteleport or queue_on_teleport or nil
+    if queue then
+        queue(
+            'wait(3) (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()'
+        )
+    end
+    if not queue then
+        error("no queue")
+    end
+    wait(6)
+    local TeleportService = game:GetService("TeleportService")
+    local HttpService = game:GetService("HttpService")
+
+    local placeId = game.PlaceId
+    local servers = {}
+
+    local success, response =
+        pcall(
+        function()
+            return HttpService:JSONDecode(
+                game:HttpGet(
+                    "https://games.roblox.com/v1/games/" ..
+                        placeId ..
+                            "/servers/Public?sortOrder=Asc&limit=100&excludeFullGames=true"
+                )
+            )
+        end
+    )
+
+    if success and response and response.data then
+        for _, server in pairs(response.data) do
+            if server.playing < server.maxPlayers and server.id ~= game.JobId and not string.find(file, game.JobId) then
+                appendfile("vstyf.txt", server.id)
+                TeleportService:TeleportToPlaceInstance(placeId, server.id, game.Players.LocalPlayer)
+                
+                break
+            end
+        end
+    else
+        warn("Failed to find a server to hop.")
+    end
 end
