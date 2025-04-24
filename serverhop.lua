@@ -34,6 +34,7 @@ if dohop then
         error("no queue")
     end
     wait(6)
+    repeat
     local TeleportService = game:GetService("TeleportService")
     local HttpService = game:GetService("HttpService")
 
@@ -51,6 +52,7 @@ if dohop then
                 )
             )
             print(e, e.nextPageCursor)
+            if not e.nextPageCursor then return e end
             return HttpService:JSONDecode(
                 game:HttpGet(
                     "https://games.roblox.com/v1/games/" ..
@@ -75,4 +77,6 @@ if dohop then
     else
         warn("Failed to find a server to hop.")
     end
+    wait()
+    until 1==2
 end
