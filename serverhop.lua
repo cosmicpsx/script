@@ -27,7 +27,7 @@ if dohop then
     local queue = queueonteleport or queue_on_teleport or nil
     if queue then
         queue(
-            'wait(3) (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()'
+            'wait(3) repeat wait() until game:IsLoaded() wait() local x = (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua")) print(x) x()'
         )
     end
     if not queue then
@@ -50,6 +50,7 @@ if dohop then
                             "/servers/Public?sortOrder=Asc&limit=100&excludeFullGames=true"
                 )
             )
+            print(e, e.nextPageCursor)
             return HttpService:JSONDecode(
                 game:HttpGet(
                     "https://games.roblox.com/v1/games/" ..
@@ -61,7 +62,9 @@ if dohop then
     )
 
     if success and response and response.data then
+        print(#response.data)
         for _, server in pairs(response.data) do
+        print(server.id)
             if server.playing < server.maxPlayers and server.id ~= game.JobId and not string.find(file, game.JobId) then
                 appendfile("vstyf.txt", server.id)
                 TeleportService:TeleportToPlaceInstance(placeId, server.id, game.Players.LocalPlayer)
