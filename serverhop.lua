@@ -6,6 +6,7 @@ appendfile("vstyf.txt", game.JobId)
 end
 local file = readfile("vstyf.txt")
 wait(5)
+repeat wait() until #workspace.Rendered.Rifts:GetChildren() >= 5
 local rifts = workspace.Rendered.Rifts:GetChildren()
 for i,v in pairs(rifts) do
 if v.Name == "royal-chest" or v.Name=="aura-egg" then
@@ -17,6 +18,8 @@ local queue = queueonteleport or queue_on_teleport or nil
  if queue then
 queue('(loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/cosmicpsx/script/refs/heads/main/serverhop.lua", true))()')
  end
+    if not queue then error("no queue") end
+  wait(5)
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
 
